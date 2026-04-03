@@ -41,4 +41,8 @@ releases/
 
 # Xcode backup
 *.xcodeproj.backup/
+
+# Local Xcode signing overrides
+Config/Project.local.xcconfig
+
 CLAUDE.md

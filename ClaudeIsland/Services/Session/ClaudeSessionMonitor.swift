@@ -35,6 +35,16 @@ class ClaudeSessionMonitor: ObservableObject {
             onEvent: { event in
                 Task {
                     await SessionStore.shared.process(.hookReceived(event))
+
+                    let shouldPlaySound = event.event == "PermissionRequest"
+                        || event.event == "Stop"
+                        || (event.event == "Notification" && event.notificationType == "idle_prompt")
+
+                    if shouldPlaySound {
+                        await MainActor.run {
+                            AppSettings.playNotificationSoundIfEnabled()
+                        }
+                    }
                 }
 
                 if event.sessionPhase == .processing {

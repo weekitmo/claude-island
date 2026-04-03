@@ -20,6 +20,7 @@
 - **Live Session Monitoring** — Track multiple Claude Code sessions in real-time
 - **Permission Approvals** — Approve or deny tool executions directly from the notch
 - **Chat History** — View full conversation history with markdown rendering
+- **Configurable Sound Alerts** — Play system notification sounds for permission requests, stops, and completed prompts
 - **Auto-Setup** — Hooks install automatically on first launch
 
 ## Requirements
@@ -33,6 +34,21 @@ Download the latest release or build from source:
 
 ```bash
 xcodebuild -scheme ClaudeIsland -configuration Release build
+```
+
+## Local Signing Setup
+
+This repo keeps Apple signing overrides out of git.
+
+1. Copy `Config/Project.local-template.xcconfig` to `Config/Project.local.xcconfig`
+2. Set your `DEVELOPMENT_TEAM`
+3. If automatic signing rejects the shared bundle ID, also set a local `PRODUCT_BUNDLE_IDENTIFIER`
+
+Example:
+
+```xcconfig
+DEVELOPMENT_TEAM = YOUR_TEAM_ID
+// PRODUCT_BUNDLE_IDENTIFIER = com.example.ClaudeIsland
 ```
 
 ## How It Works

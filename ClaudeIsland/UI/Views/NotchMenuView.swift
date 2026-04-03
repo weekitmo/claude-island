@@ -38,6 +38,13 @@ struct NotchMenuView: View {
             // Appearance settings
             ScreenPickerRow(screenSelector: screenSelector)
             SoundPickerRow(soundSelector: soundSelector)
+            MenuToggleRow(
+                icon: "bell",
+                label: "Hook Sound",
+                isOn: AppSettings.playHookNotificationSound
+            ) {
+                AppSettings.playHookNotificationSound.toggle()
+            }
 
             Divider()
                 .background(Color.white.opacity(0.08))

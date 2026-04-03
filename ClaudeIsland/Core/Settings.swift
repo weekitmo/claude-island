@@ -5,6 +5,7 @@
 //  App settings manager using UserDefaults
 //
 
+import AppKit
 import Foundation
 
 /// Available notification sounds
@@ -38,6 +39,7 @@ enum AppSettings {
 
     private enum Keys {
         static let notificationSound = "notificationSound"
+        static let playHookNotificationSound = "playHookNotificationSound"
     }
 
     // MARK: - Notification Sound
@@ -54,5 +56,24 @@ enum AppSettings {
         set {
             defaults.set(newValue.rawValue, forKey: Keys.notificationSound)
         }
+    }
+
+    /// Whether to play a sound after selected hook events are processed
+    static var playHookNotificationSound: Bool {
+        get {
+            if defaults.object(forKey: Keys.playHookNotificationSound) == nil {
+                return true
+            }
+            return defaults.bool(forKey: Keys.playHookNotificationSound)
+        }
+        set {
+            defaults.set(newValue, forKey: Keys.playHookNotificationSound)
+        }
+    }
+
+    static func playNotificationSoundIfEnabled() {
+        guard playHookNotificationSound,
+              let soundName = notificationSound.soundName else { return }
+        NSSound(named: soundName)?.play()
     }
 }
